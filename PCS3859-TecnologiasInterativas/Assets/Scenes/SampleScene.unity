@@ -3996,6 +3996,7 @@ MonoBehaviour:
   optionBText: {fileID: 1655397843}
   optionCText: {fileID: 891415934}
   optionDText: {fileID: 2013932478}
+  currentDialogue: {fileID: 11400000, guid: 21f7e70da9ab78948a69a21fb811a0c0, type: 2}
   interfacePanel: {fileID: 1113425197}
   controlPanel: {fileID: 614384415}
   toggleButton: {fileID: 998413468}
@@ -5004,9 +5005,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 500fdd4136cdd4ee881ef723eac945a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraTransform: {fileID: 1183417991}
-  distanceFromCamera: 2
-  heightOffset: 0
 --- !u!114 &1556886112
 MonoBehaviour:
   m_ObjectHideFlags: 0
