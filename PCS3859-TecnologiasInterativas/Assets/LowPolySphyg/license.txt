@@ -1,0 +1,11 @@
+Model Information:
+* title:	Sphygmomanometer Low Poly
+* source:	https://sketchfab.com/3d-models/sphygmomanometer-low-poly-58f303b71fd047b0960785141485f8f0
+* author:	TheGiwi (https://sketchfab.com/TheGiwi)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Sphygmomanometer Low Poly" (https://sketchfab.com/3d-models/sphygmomanometer-low-poly-58f303b71fd047b0960785141485f8f0) by TheGiwi (https://sketchfab.com/TheGiwi) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
