@@ -6,7 +6,6 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class ButtonPushOpenDoor : MonoBehaviour
 {
-    public Animator animator;
     public GameObject door;
     public GameObject pacient;
 
