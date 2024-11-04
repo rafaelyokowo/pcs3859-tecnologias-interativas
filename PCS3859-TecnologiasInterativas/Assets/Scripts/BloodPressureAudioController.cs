@@ -24,7 +24,7 @@ public class BloodPressureAudioController : MonoBehaviour
 
     private bool isInflating = false;    // Controlar se o jogador está inflando o medidor
 
-    private float needlePressure = 150.0f;
+    private float needlePressure = 0.0f;
 
     void Start()
     {
@@ -113,12 +113,12 @@ public class BloodPressureAudioController : MonoBehaviour
         {
             currentPressure -= 10f * Time.deltaTime; // Decremento de pressão (ajuste conforme necessário)
         }
-        currentPressure = Mathf.Clamp(currentPressure, 0, 300.0f);
+        currentPressure = Mathf.Clamp(currentPressure, 0, 360.0f);
         SetNeedle();
     }
 
     void SetNeedle()
     {
-        imageNeedle.transform.localEulerAngles = new Vector3(0, 0, (currentPressure / 300.0f * 240.0f - 120.0f) * -1.0f);
+        imageNeedle.transform.localEulerAngles = new Vector3(0, 0, (currentPressure / 360.0f * 360.0f ) * -1.0f);
     }
 }
