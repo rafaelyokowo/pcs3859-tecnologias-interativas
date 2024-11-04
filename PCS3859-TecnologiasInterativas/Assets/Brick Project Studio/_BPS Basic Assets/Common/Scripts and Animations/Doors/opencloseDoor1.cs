@@ -51,7 +51,18 @@ namespace SojaExiles
 
 		}
 
-		IEnumerator opening()
+        public void OpenDoor()
+        {
+            if (open == false)
+            {
+                StartCoroutine(opening());
+            }
+            else
+            {
+                StartCoroutine(closing());
+            }
+        }
+        IEnumerator opening()
 		{
 			print("you are opening the door");
 			openandclose1.Play("Opening 1");
