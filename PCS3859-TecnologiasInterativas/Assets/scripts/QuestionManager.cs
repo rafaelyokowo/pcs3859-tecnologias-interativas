@@ -40,17 +40,17 @@ public class QuestionManager : MonoBehaviour
                 "Cumprimentar o paciente com um aperto de mão", 
                 "Fotografar o paciente para o registro", 
                 "Confirmar o nome do paciente" },
-                correctAnswerIndex = 1
+                correctAnswerIndex = 0
             },
             new Question
             {
-                questionText = "Which planet is known as the Red Planet?",
+                questionText = "Durante a higienização, quais materiais devem ser desinfetados e de que forma?",
                 description = "Escolha a opção correta abaixo.",
                 options = new string[] { "Cadeira, maca e mesa de atendimento com produtos de limpeza", 
                 "Campânula/diafragma e olivas do estetoscópio com algodão embebido em álcool 70%", 
                 "Máscaras, bisturi e outros materiais de instrumentação com algodão embebido em álcool 70%", 
                 "Não há necessidade de desinfetar materiais nesta etapa do procedimento" },
-                correctAnswerIndex = 2
+                correctAnswerIndex = 1
             },
             new Question
             {
@@ -60,7 +60,7 @@ public class QuestionManager : MonoBehaviour
                 "Pedir para que se deite", 
                 "Colocar o manguito no paciente", 
                 "Aferir a pressão do paciente" },
-                correctAnswerIndex = 1
+                correctAnswerIndex = 0
             },
             new Question
             {
@@ -70,7 +70,7 @@ public class QuestionManager : MonoBehaviour
                 "Apelido", 
                 "Nome e data de nascimento", 
                 "Somente nome" },
-                correctAnswerIndex = 3
+                correctAnswerIndex = 2
             },
             new Question
             {
@@ -80,7 +80,7 @@ public class QuestionManager : MonoBehaviour
                 "Situação emocional e psicológica para evitar vieses na medida da pressão arterial", 
                 "Hábitos de sono, de alimentação e de exercícios físicos", 
                 "Alimentação ou prática de atividade física na última hora, ingestão de bebidas alcoólicas ou café e consumo de tabaco." },
-                correctAnswerIndex = 4
+                correctAnswerIndex = 3
             },
             new Question
             {
