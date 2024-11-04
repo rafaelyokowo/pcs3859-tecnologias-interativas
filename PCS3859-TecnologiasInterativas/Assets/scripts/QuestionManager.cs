@@ -34,10 +34,53 @@ public class QuestionManager : MonoBehaviour
         {
             new Question
             {
-                questionText = "What is the capital of France?",
-                description = "Choose the correct answer from the options below.",
-                options = new string[] { "Berlin", "Madrid", "Paris", "Rome" },
-                correctAnswerIndex = 2 // Paris
+                questionText = "Antes da consulta, qual o primeiro procedimento a ser feito?",
+                description = "Escolha a opção correta abaixo.",
+                options = new string[] { "Realizar a higienização das mãos", 
+                "Cumprimentar o paciente com um aperto de mão", 
+                "Fotografar o paciente para o registro", 
+                "Confirmar o nome do paciente" },
+                correctAnswerIndex = 0
+            },
+            new Question
+            {
+                questionText = "Durante a higienização, quais materiais devem ser desinfetados e de que forma?",
+                description = "Escolha a opção correta abaixo.",
+                options = new string[] { "Cadeira, maca e mesa de atendimento com produtos de limpeza", 
+                "Campânula/diafragma e olivas do estetoscópio com algodão embebido em álcool 70%", 
+                "Máscaras, bisturi e outros materiais de instrumentação com algodão embebido em álcool 70%", 
+                "Não há necessidade de desinfetar materiais nesta etapa do procedimento" },
+                correctAnswerIndex = 1
+            },
+            new Question
+            {
+                questionText = "O paciente entra no consultório. Qual é a primeira coisa a se fazer?",
+                description = "Escolha a opção correta abaixo.",
+                options = new string[] { "Apresentar-se ao paciente", 
+                "Pedir para que se deite", 
+                "Colocar o manguito no paciente", 
+                "Aferir a pressão do paciente" },
+                correctAnswerIndex = 0
+            },
+            new Question
+            {
+                questionText = "Você se apresenta ao paciente. O que você usa para confirmar a identidade do mesmo?",
+                description = "Escolha a opção correta abaixo.",
+                options = new string[] { "CPF ou RG", 
+                "Apelido", 
+                "Nome e data de nascimento", 
+                "Somente nome" },
+                correctAnswerIndex = 2
+            },
+            new Question
+            {
+                questionText = "Antes de dar o início ao procedimento de aferição de pressão, alguns pré-requisitos devem ser atendidos, eles estão relacionados à:",
+                description = "Escolha a opção correta abaixo.",
+                options = new string[] { "Características do paciente como altura, peso e orientação sexual", 
+                "Situação emocional e psicológica para evitar vieses na medida da pressão arterial", 
+                "Hábitos de sono, de alimentação e de exercícios físicos", 
+                "Alimentação ou prática de atividade física na última hora, ingestão de bebidas alcoólicas ou café e consumo de tabaco." },
+                correctAnswerIndex = 3
             },
             new Question
             {
@@ -46,7 +89,6 @@ public class QuestionManager : MonoBehaviour
                 options = new string[] { "Earth", "Mars", "Jupiter", "Saturn" },
                 correctAnswerIndex = 1 // Mars
             },
-            // Add more questions as needed
         };
 
         if (questions.Length > 0)
