@@ -23,7 +23,11 @@ public class QuestionManager : MonoBehaviour
     [SerializeField] private Button nextButton; // Next Button to go to the next question
     [SerializeField] private Button previousButton; // Previous Button to go to the previous question
 
+    [SerializeField] private TMP_Text previousButtonText;
+
     private int currentQuestionIndex = 0;
+
+    private bool randomSelectionStarted = false;
 
     private Question[] questions; // Array of questions
 
@@ -84,11 +88,53 @@ public class QuestionManager : MonoBehaviour
             },
             new Question
             {
-                questionText = "Which planet is known as the Red Planet?",
-                description = "Select the right option.",
-                options = new string[] { "Earth", "Mars", "Jupiter", "Saturn" },
-                correctAnswerIndex = 1 // Mars
+                questionText = "O paciente menciona que fumou 15 minutos atrás. O que deve ser feito?",
+                description = "Escolha a opção correta abaixo.",
+                options = new string[] { "Pedir para o paciente aguardar pelo menos 15 minutos. O procedimento não pode continuar até então.", "Nada. O procedimento pode continuar normalmente.", "Pedir para o paciente retornar no dia seguinte. O paciente não pode ter fumado nas últimas 8 horas.", "Pedir para o paciente aguardar pelo menos 1 hora. O procedimento não pode continuar até então." },
+                correctAnswerIndex = 0
             },
+            new Question
+            {
+                questionText = "O paciente menciona que tomou café 2 horas atrás. O que deve ser feito?",
+                description = "Escolha a opção correta abaixo.",
+                options = new string[] { "Pedir para o paciente retornar no dia seguinte. O paciente não pode ter tomado café nas últimas 6 horas.", "Pedir para o paciente tomar água. O procedimento pode continuar após isso.", "Pedir para o paciente aguardar pelo menos 1 hora. O procedimento não pode continuar até então.", "Nada. O procedimento pode continuar normalmente." },
+                correctAnswerIndex = 3
+            },
+            new Question
+            {
+                questionText = "O paciente diz que fez uma extensa caminhada para chegar ao consultório. O que deve ser feito?",
+                description = "Escolha a opção correta abaixo.",
+                options = new string[] { "Se o paciente for jovem, continuar o procedimento normalmente. Caso contrário, aguardar 1 hora.", "Se o paciente julgar o exercício como intenso, interromper o procedimento. O paciente não pode realizar esforço no mesmo dia.", "Nada. O procedimento pode continuar normalmente.", "Pedir para que o paciente aguarde 1 hora ou retorne outro dia sem fazer exercício. O procedimento não pode continuar até então." },
+                correctAnswerIndex = 3
+            },
+            new Question
+            {
+                questionText = "O paciente menciona que urinou 5 minutos atrás. O que deve ser feito?",
+                description = "Escolha a opção correta abaixo.",
+                options = new string[] { "Nada. O procedimento pode continuar normalmente.", "Pedir para que o paciente tome água e aguarde 10 minutos.", "Pedir para que o paciente volte outro dia de bexiga cheia.", "Pedir para que o paciente não urine no consultório." },
+                correctAnswerIndex = 0
+            },
+            new Question
+            {
+                questionText = "Questão 6.5 - O paciente menciona que almoçou uma feijoada há menos de 10 minutos. O que deve ser feito?",
+                description = "Escolha a opção correta abaixo.",
+                options = new string[] { "Nada. O procedimento continua como normal.", "Pedir para o paciente aguardar 2 horas. Até então, o procedimento não pode continuar.", "Pedir para o paciente voltar outro dia. O paciente deve estar de jejum.", "Pedir para o paciente aguardar 30 minutos. Até então, o procedimento não pode continuar." },
+                correctAnswerIndex = 3
+            },
+            new Question
+            {
+                questionText = "O paciente menciona que bebeu vodka no dia anterior. O que deve ser feito?",
+                description = "Escolha a opção correta abaixo.",
+                options = new string[] { "Pedir para o paciente aguardar 2 horas. Até então, o procedimento não pode continuar.", "Pedir para o paciente tomar água e esperar 10 minutos. Até então, o procedimento não pode continuar.", "Pedir para o paciente voltar outro dia. O paciente não pode ter bebido nas últimas 24 horas.", "Nada. O procedimento continua como normal." },
+                correctAnswerIndex = 3
+            },
+            new Question
+            {
+                questionText = "Parabéns, você completou o questionário sobre anamnese!",
+                description = "Deixe o tablet sobre a mesa e inicie o procedimento de aferição de pressão.",
+                options = new string[] {"","","",""},
+                correctAnswerIndex = 5
+            }
         };
 
         if (questions.Length > 0)
@@ -100,9 +146,8 @@ public class QuestionManager : MonoBehaviour
             Debug.LogError("No questions have been added to the QuestionManager.");
         }
 
-        // Add listener for the close button in the feedback window
         closeButton.onClick.AddListener(CloseFeedbackWindow);
-        feedbackWindow.SetActive(false); // Start with the feedback window hidden
+        feedbackWindow.SetActive(false); 
 
         // Add listeners for the Next and Previous buttons
         nextButton.onClick.AddListener(NextQuestion);
@@ -123,7 +168,7 @@ public class QuestionManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("No more questions to display.");
+            Debug.Log("Não há mais questões para apresentar.");
         }
     }
 
@@ -134,9 +179,9 @@ public class QuestionManager : MonoBehaviour
 
         for (int i = 0; i < optionButtons.Length; i++)
         {
-            optionTexts[i].text = options[i]; // Set button text using TMP_Text
-            int index = i; // Capture the current index for the listener
-            optionButtons[i].onClick.RemoveAllListeners(); // Clear previous listeners
+            optionTexts[i].text = options[i];
+            int index = i;
+            optionButtons[i].onClick.RemoveAllListeners();
             optionButtons[i].onClick.AddListener(() => CheckAnswer(index));
         }
     }
@@ -146,48 +191,64 @@ public class QuestionManager : MonoBehaviour
         Question currentQuestion = questions[currentQuestionIndex];
         if (selectedIndex == currentQuestion.correctAnswerIndex)
         {
-            ShowFeedback("Correct!", "Well done, that's the right answer.");
+            ShowFeedback("Você acertou!", "Parabéns, você escolheu a resposta correta.");
+        }
+        else if (currentQuestionIndex == questions.Length - 1)
+        {
+            ShowFeedback("Você finalizou o questionário de anamnese.", "Siga para a próxima etapa.");
         }
         else
         {
-            ShowFeedback("Incorrect", "That's not correct. Please try again.");
+            ShowFeedback("A resposta escolhida não está correta. ", "Tente novamente.");
         }
     }
 
     private void ShowFeedback(string title, string message)
     {
         feedbackText.text = $"{title}\n{message}";
-        feedbackWindow.SetActive(true); // Show the feedback window
+        feedbackWindow.SetActive(true);
     }
 
     private void CloseFeedbackWindow()
     {
-        feedbackWindow.SetActive(false); // Hide the feedback window
+        feedbackWindow.SetActive(false);
     }
 
-    private void NextQuestion()
+    public void NextQuestion()
     {
-        if (currentQuestionIndex < questions.Length - 1)
+        if (currentQuestionIndex < 5)
         {
             currentQuestionIndex++;
-            DisplayCurrentQuestion();
         }
         else
         {
-            Debug.Log("Reached the end of the quiz.");
+            if (!randomSelectionStarted)
+            {
+                randomSelectionStarted = true;
+                currentQuestionIndex = Random.Range(5, questions.Length);
+            }
+            else {
+                currentQuestionIndex = questions.Length - 1;
+                previousButtonText.text = "Recomeçar";
+            }
         }
+        DisplayCurrentQuestion();
     }
 
-    private void PreviousQuestion()
+    public void PreviousQuestion()
     {
-        if (currentQuestionIndex > 0)
+        if (currentQuestionIndex > 0 && currentQuestionIndex < questions.Length - 1)
         {
             currentQuestionIndex--;
             DisplayCurrentQuestion();
         }
         else
         {
-            Debug.Log("Already at the first question.");
+            currentQuestionIndex = 0;
+            previousButtonText.text = "Voltar";
+            DisplayCurrentQuestion();
+            Debug.Log("Você está na primeira questão.");
         }
     }
+    
 }
