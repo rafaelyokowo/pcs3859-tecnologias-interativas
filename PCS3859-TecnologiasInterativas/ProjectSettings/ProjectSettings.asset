@@ -140,9 +140,7 @@ PlayerSettings:
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
   bundleVersion: 0.1
-  preloadedAssets:
-  - {fileID: 4542377373140132589, guid: 7ff71a040bc4613409dd105b2eeb85c8, type: 2}
-  - {fileID: -4774270754843832873, guid: cf658692f4fa01946b7a8d5a06c2785f, type: 2}
+  preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -163,8 +161,8 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Standalone: com.DefaultCompany.PCS3859-TecnologiasInterativas
     Android: com.DefaultCompany.PCS3859TecnologiasInterativas
+    Standalone: com.DefaultCompany.PCS3859-TecnologiasInterativas
   buildNumber:
     Standalone: 0
     VisionOS: 0
