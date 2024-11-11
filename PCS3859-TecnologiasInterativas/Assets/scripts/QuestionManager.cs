@@ -245,7 +245,7 @@ public class QuestionManager : MonoBehaviour
 
     public void NextQuestion()
     {
-        if (currentQuestionIndex < randomizableQuestions.Length - 2)
+        if (currentQuestionIndex < randomizableQuestions.Length - 1)
         {
             currentQuestionIndex++;
         }
