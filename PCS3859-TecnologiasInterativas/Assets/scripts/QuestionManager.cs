@@ -10,6 +10,28 @@ public class Question
     public string[] options; // Must be of length 4 for options A-D
     public int correctAnswerIndex; // Index of the correct answer
 }
+[System.Serializable]
+public class RandomizableQuestion
+{
+    public Question[] possibleQuestions;
+    public int selectedQuestion;
+
+    public void RandomizeSelectedQuestion()
+    {
+        selectedQuestion = Random.Range(0, possibleQuestions.Length - 1);
+    }
+
+    public Question GetSelectedQuestion() { return possibleQuestions[selectedQuestion]; }
+
+    public RandomizableQuestion(Question question) {
+        possibleQuestions = new Question[] { question };
+    }
+
+    public RandomizableQuestion(Question[] questions)
+    {
+        possibleQuestions = questions;
+    }
+}
 
 public class QuestionManager : MonoBehaviour
 {
@@ -29,115 +51,122 @@ public class QuestionManager : MonoBehaviour
 
     private bool randomSelectionStarted = false;
 
-    private Question[] questions; // Array of questions
+    private RandomizableQuestion[] randomizableQuestions;
 
     private void Start()
     {
-        // Hardcode the questions and options here
-        questions = new Question[]
+        randomizableQuestions = new RandomizableQuestion[]
         {
-            new Question
+            new RandomizableQuestion(new Question
             {
                 questionText = "Antes da consulta, qual o primeiro procedimento a ser feito?",
                 description = "Escolha a opção correta abaixo.",
-                options = new string[] { "Realizar a higienização das mãos", 
-                "Cumprimentar o paciente com um aperto de mão", 
-                "Fotografar o paciente para o registro", 
+                options = new string[] { "Realizar a higienização das mãos",
+                "Cumprimentar o paciente com um aperto de mão",
+                "Fotografar o paciente para o registro",
                 "Confirmar o nome do paciente" },
                 correctAnswerIndex = 0
-            },
-            new Question
+            }),
+            new RandomizableQuestion(new Question
             {
                 questionText = "Durante a higienização, quais materiais devem ser desinfetados e de que forma?",
                 description = "Escolha a opção correta abaixo.",
-                options = new string[] { "Cadeira, maca e mesa de atendimento com produtos de limpeza", 
-                "Campânula/diafragma e olivas do estetoscópio com algodão embebido em álcool 70%", 
-                "Máscaras, bisturi e outros materiais de instrumentação com algodão embebido em álcool 70%", 
+                options = new string[] { "Cadeira, maca e mesa de atendimento com produtos de limpeza",
+                "Campânula/diafragma e olivas do estetoscópio com algodão embebido em álcool 70%",
+                "Máscaras, bisturi e outros materiais de instrumentação com algodão embebido em álcool 70%",
                 "Não há necessidade de desinfetar materiais nesta etapa do procedimento" },
                 correctAnswerIndex = 1
-            },
-            new Question
+            }),
+            new RandomizableQuestion(new Question
             {
                 questionText = "O paciente entra no consultório. Qual é a primeira coisa a se fazer?",
                 description = "Escolha a opção correta abaixo.",
-                options = new string[] { "Apresentar-se ao paciente", 
-                "Pedir para que se deite", 
-                "Colocar o manguito no paciente", 
+                options = new string[] { "Apresentar-se ao paciente",
+                "Pedir para que se deite",
+                "Colocar o manguito no paciente",
                 "Aferir a pressão do paciente" },
                 correctAnswerIndex = 0
-            },
-            new Question
+            }),
+            new RandomizableQuestion(new Question
             {
                 questionText = "Você se apresenta ao paciente. O que você usa para confirmar a identidade do mesmo?",
                 description = "Escolha a opção correta abaixo.",
-                options = new string[] { "CPF ou RG", 
-                "Apelido", 
-                "Nome e data de nascimento", 
+                options = new string[] { "CPF ou RG",
+                "Apelido",
+                "Nome e data de nascimento",
                 "Somente nome" },
                 correctAnswerIndex = 2
-            },
-            new Question
+            }),
+            new RandomizableQuestion(new Question
             {
                 questionText = "Antes de dar o início ao procedimento de aferição de pressão, alguns pré-requisitos devem ser atendidos, eles estão relacionados à:",
                 description = "Escolha a opção correta abaixo.",
-                options = new string[] { "Características do paciente como altura, peso e orientação sexual", 
-                "Situação emocional e psicológica para evitar vieses na medida da pressão arterial", 
-                "Hábitos de sono, de alimentação e de exercícios físicos", 
+                options = new string[] { "Características do paciente como altura, peso e orientação sexual",
+                "Situação emocional e psicológica para evitar vieses na medida da pressão arterial",
+                "Hábitos de sono, de alimentação e de exercícios físicos",
                 "Alimentação ou prática de atividade física na última hora, ingestão de bebidas alcoólicas ou café e consumo de tabaco." },
                 correctAnswerIndex = 3
-            },
-            new Question
+            }),
+            new RandomizableQuestion(new Question[]
             {
-                questionText = "O paciente menciona que fumou 15 minutos atrás. O que deve ser feito?",
-                description = "Escolha a opção correta abaixo.",
-                options = new string[] { "Pedir para o paciente aguardar pelo menos 15 minutos. O procedimento não pode continuar até então.", "Nada. O procedimento pode continuar normalmente.", "Pedir para o paciente retornar no dia seguinte. O paciente não pode ter fumado nas últimas 8 horas.", "Pedir para o paciente aguardar pelo menos 1 hora. O procedimento não pode continuar até então." },
-                correctAnswerIndex = 0
-            },
-            new Question
-            {
-                questionText = "O paciente menciona que tomou café 2 horas atrás. O que deve ser feito?",
-                description = "Escolha a opção correta abaixo.",
-                options = new string[] { "Pedir para o paciente retornar no dia seguinte. O paciente não pode ter tomado café nas últimas 6 horas.", "Pedir para o paciente tomar água. O procedimento pode continuar após isso.", "Pedir para o paciente aguardar pelo menos 1 hora. O procedimento não pode continuar até então.", "Nada. O procedimento pode continuar normalmente." },
-                correctAnswerIndex = 3
-            },
-            new Question
-            {
-                questionText = "O paciente diz que fez uma extensa caminhada para chegar ao consultório. O que deve ser feito?",
-                description = "Escolha a opção correta abaixo.",
-                options = new string[] { "Se o paciente for jovem, continuar o procedimento normalmente. Caso contrário, aguardar 1 hora.", "Se o paciente julgar o exercício como intenso, interromper o procedimento. O paciente não pode realizar esforço no mesmo dia.", "Nada. O procedimento pode continuar normalmente.", "Pedir para que o paciente aguarde 1 hora ou retorne outro dia sem fazer exercício. O procedimento não pode continuar até então." },
-                correctAnswerIndex = 3
-            },
-            new Question
-            {
-                questionText = "O paciente menciona que urinou 5 minutos atrás. O que deve ser feito?",
-                description = "Escolha a opção correta abaixo.",
-                options = new string[] { "Nada. O procedimento pode continuar normalmente.", "Pedir para que o paciente tome água e aguarde 10 minutos.", "Pedir para que o paciente volte outro dia de bexiga cheia.", "Pedir para que o paciente não urine no consultório." },
-                correctAnswerIndex = 0
-            },
-            new Question
-            {
-                questionText = "Questão 6.5 - O paciente menciona que almoçou uma feijoada há menos de 10 minutos. O que deve ser feito?",
-                description = "Escolha a opção correta abaixo.",
-                options = new string[] { "Nada. O procedimento continua como normal.", "Pedir para o paciente aguardar 2 horas. Até então, o procedimento não pode continuar.", "Pedir para o paciente voltar outro dia. O paciente deve estar de jejum.", "Pedir para o paciente aguardar 30 minutos. Até então, o procedimento não pode continuar." },
-                correctAnswerIndex = 3
-            },
-            new Question
-            {
-                questionText = "O paciente menciona que bebeu vodka no dia anterior. O que deve ser feito?",
-                description = "Escolha a opção correta abaixo.",
-                options = new string[] { "Pedir para o paciente aguardar 2 horas. Até então, o procedimento não pode continuar.", "Pedir para o paciente tomar água e esperar 10 minutos. Até então, o procedimento não pode continuar.", "Pedir para o paciente voltar outro dia. O paciente não pode ter bebido nas últimas 24 horas.", "Nada. O procedimento continua como normal." },
-                correctAnswerIndex = 3
-            },
-            new Question
+                new Question
+                {
+                    questionText = "O paciente menciona que fumou 15 minutos atrás. O que deve ser feito?",
+                    description = "Escolha a opção correta abaixo.",
+                    options = new string[] { "Pedir para o paciente aguardar pelo menos 15 minutos. O procedimento não pode continuar até então.", "Nada. O procedimento pode continuar normalmente.", "Pedir para o paciente retornar no dia seguinte. O paciente não pode ter fumado nas últimas 8 horas.", "Pedir para o paciente aguardar pelo menos 1 hora. O procedimento não pode continuar até então." },
+                    correctAnswerIndex = 0
+                },
+                new Question
+                {
+                    questionText = "O paciente menciona que tomou café 2 horas atrás. O que deve ser feito?",
+                    description = "Escolha a opção correta abaixo.",
+                    options = new string[] { "Pedir para o paciente retornar no dia seguinte. O paciente não pode ter tomado café nas últimas 6 horas.", "Pedir para o paciente tomar água. O procedimento pode continuar após isso.", "Pedir para o paciente aguardar pelo menos 1 hora. O procedimento não pode continuar até então.", "Nada. O procedimento pode continuar normalmente." },
+                    correctAnswerIndex = 3
+                },
+                new Question
+                {
+                    questionText = "O paciente diz que fez uma extensa caminhada para chegar ao consultório. O que deve ser feito?",
+                    description = "Escolha a opção correta abaixo.",
+                    options = new string[] { "Se o paciente for jovem, continuar o procedimento normalmente. Caso contrário, aguardar 1 hora.", "Se o paciente julgar o exercício como intenso, interromper o procedimento. O paciente não pode realizar esforço no mesmo dia.", "Nada. O procedimento pode continuar normalmente.", "Pedir para que o paciente aguarde 1 hora ou retorne outro dia sem fazer exercício. O procedimento não pode continuar até então." },
+                    correctAnswerIndex = 3
+                },
+                new Question
+                {
+                    questionText = "O paciente menciona que urinou 5 minutos atrás. O que deve ser feito?",
+                    description = "Escolha a opção correta abaixo.",
+                    options = new string[] { "Nada. O procedimento pode continuar normalmente.", "Pedir para que o paciente tome água e aguarde 10 minutos.", "Pedir para que o paciente volte outro dia de bexiga cheia.", "Pedir para que o paciente não urine no consultório." },
+                    correctAnswerIndex = 0
+                },
+                new Question
+                {
+                    questionText = "Questão 6.5 - O paciente menciona que almoçou uma feijoada há menos de 10 minutos. O que deve ser feito?",
+                    description = "Escolha a opção correta abaixo.",
+                    options = new string[] { "Nada. O procedimento continua como normal.", "Pedir para o paciente aguardar 2 horas. Até então, o procedimento não pode continuar.", "Pedir para o paciente voltar outro dia. O paciente deve estar de jejum.", "Pedir para o paciente aguardar 30 minutos. Até então, o procedimento não pode continuar." },
+                    correctAnswerIndex = 3
+                },
+                new Question
+                {
+                    questionText = "O paciente menciona que bebeu vodka no dia anterior. O que deve ser feito?",
+                    description = "Escolha a opção correta abaixo.",
+                    options = new string[] { "Pedir para o paciente aguardar 2 horas. Até então, o procedimento não pode continuar.", "Pedir para o paciente tomar água e esperar 10 minutos. Até então, o procedimento não pode continuar.", "Pedir para o paciente voltar outro dia. O paciente não pode ter bebido nas últimas 24 horas.", "Nada. O procedimento continua como normal." },
+                    correctAnswerIndex = 3
+                },
+            }),
+            new RandomizableQuestion(new Question
             {
                 questionText = "Parabéns, você completou o questionário sobre anamnese!",
                 description = "Deixe o tablet sobre a mesa e inicie o procedimento de aferição de pressão.",
                 options = new string[] {"","","",""},
                 correctAnswerIndex = 5
-            }
+            })
         };
 
-        if (questions.Length > 0)
+        foreach (var randomizableQuestion in randomizableQuestions)
+        {
+            randomizableQuestion.RandomizeSelectedQuestion();
+        }
+
+        if (randomizableQuestions.Length > 0)
         {
             DisplayCurrentQuestion();
         }
@@ -156,9 +185,9 @@ public class QuestionManager : MonoBehaviour
 
     private void DisplayCurrentQuestion()
     {
-        if (currentQuestionIndex >= 0 && currentQuestionIndex < questions.Length)
+        if (currentQuestionIndex >= 0 && currentQuestionIndex < randomizableQuestions.Length)
         {
-            Question currentQuestion = questions[currentQuestionIndex];
+            Question currentQuestion = randomizableQuestions[currentQuestionIndex].GetSelectedQuestion();
             SetQuestion(
                 currentQuestion.questionText,
                 currentQuestion.description,
@@ -188,12 +217,12 @@ public class QuestionManager : MonoBehaviour
 
     private void CheckAnswer(int selectedIndex)
     {
-        Question currentQuestion = questions[currentQuestionIndex];
+        Question currentQuestion = randomizableQuestions[currentQuestionIndex].GetSelectedQuestion();
         if (selectedIndex == currentQuestion.correctAnswerIndex)
         {
             ShowFeedback("Você acertou!", "Parabéns, você escolheu a resposta correta.");
         }
-        else if (currentQuestionIndex == questions.Length - 1)
+        else if (currentQuestionIndex == randomizableQuestions.Length - 1)
         {
             ShowFeedback("Você finalizou o questionário de anamnese.", "Siga para a próxima etapa.");
         }
@@ -216,28 +245,16 @@ public class QuestionManager : MonoBehaviour
 
     public void NextQuestion()
     {
-        if (currentQuestionIndex < 5)
+        if (currentQuestionIndex < randomizableQuestions.Length - 2)
         {
             currentQuestionIndex++;
-        }
-        else
-        {
-            if (!randomSelectionStarted)
-            {
-                randomSelectionStarted = true;
-                currentQuestionIndex = Random.Range(5, questions.Length);
-            }
-            else {
-                currentQuestionIndex = questions.Length - 1;
-                previousButtonText.text = "Recomeçar";
-            }
         }
         DisplayCurrentQuestion();
     }
 
     public void PreviousQuestion()
     {
-        if (currentQuestionIndex > 0 && currentQuestionIndex < questions.Length - 1)
+        if (currentQuestionIndex > 0 && currentQuestionIndex < randomizableQuestions.Length - 1)
         {
             currentQuestionIndex--;
             DisplayCurrentQuestion();
