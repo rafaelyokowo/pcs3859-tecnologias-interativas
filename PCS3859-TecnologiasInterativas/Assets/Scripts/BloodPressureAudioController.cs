@@ -6,11 +6,8 @@ public class BloodPressureAudioController : MonoBehaviour
 {
     [SerializeField]
     private Image imageNeedle;
-    [SerializeField]
-    private Slider pressureSlider;
 
     public AudioSource audioSource;
-
     public AudioClip higherThanMAX;    
     public AudioClip phase1;       // Som inicial
     public AudioClip phase2And3;    // Batimentos cardíacos
@@ -34,12 +31,7 @@ public class BloodPressureAudioController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (targetPressure != currentPressure)
-        //{
-        //    UpdatePressure();
-        //}
         UpdatePressure();
-        // Mudança de áudio com base na pressão
         if (currentPressure > maxPressure)
         {
             if (audioSource.clip != higherThanMAX)
@@ -79,13 +71,6 @@ public class BloodPressureAudioController : MonoBehaviour
         isInflating = _inflate;
     }
 
-
-    //public void SetPressureFromSlider()
-    //{
-    //    targetPressure = pressureSlider.value;
-    //}
-
-    // Usar quando outro script chama
     public void SetPressure(float amt)
     {
         targetPressure = amt;
@@ -93,17 +78,6 @@ public class BloodPressureAudioController : MonoBehaviour
 
     void UpdatePressure()
     {
-        //if (targetPressure > currentPressure)
-        //{
-        //    currentPressure += Time.deltaTime * needlePressure;
-        //    currentPressure = Mathf.Clamp(currentPressure, 0.0f, targetPressure);
-        //}
-        //else if (targetPressure < currentPressure)
-        //{
-        //    currentPressure -= Time.deltaTime * needlePressure;
-        //    currentPressure = Mathf.Clamp(currentPressure, targetPressure, 200.0f);
-        //}
-        // Simulação de inflar ou esvaziar a pressão
         if (isInflating) // O botão que você usa para inflar
         {
             currentPressure += 30f * Time.deltaTime; // Incremento de pressão (ajuste conforme necessário)
