@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 public class BloodPressureAudioController : MonoBehaviour
 {
     [SerializeField]
     private Image imageNeedle;
+
+    public InputActionReference inflatePressureReference;
 
     public AudioSource audioSource;
     public AudioClip higherThanMAX;    
@@ -78,7 +81,7 @@ public class BloodPressureAudioController : MonoBehaviour
 
     void UpdatePressure()
     {
-        if (isInflating) // O botão que você usa para inflar
+        if (isInflating || inflatePressureReference.action.ReadValue<float>() > 0.0f) // O botão que você usa para inflar
         {
             currentPressure += 30f * Time.deltaTime; // Incremento de pressão (ajuste conforme necessário)
 
