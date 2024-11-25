@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ArrowFloat : MonoBehaviour
@@ -15,17 +16,34 @@ public class ArrowFloat : MonoBehaviour
     [SerializeField]
     private float frequency = 1f;
 
+    [SerializeField]
+    private EventScriptableObject eventToDisable;
+
+    [SerializeField]
+    private EventScriptableObject eventToEnable;
+
     void Start()
     {
         startPos = transform.position;
-        this.gameObject.SetActive(shouldStartActive);
+        gameObject.SetActive(shouldStartActive);
+        eventToDisable?.AddListener(DisableArrow);
+        eventToEnable?.AddListener(EnableArrow);
     }
-
-    private void FixedUpdate()
+    void FixedUpdate()
     {
-        this.transform.Rotate(Vector3.up);
+        this.transform.Rotate(Vector3.left);
 
         float newY = startPos.y + Mathf.Sin(Time.time * frequency) * amplitude;
         this.transform.position = new Vector3(transform.position.x, newY, transform.position.z);
+    }
+
+    private void EnableArrow()
+    {
+        this.gameObject.SetActive(true);
+    }
+
+    private void DisableArrow()
+    {
+        this.gameObject.SetActive(false);
     }
 }
