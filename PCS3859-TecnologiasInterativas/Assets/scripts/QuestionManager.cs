@@ -35,6 +35,10 @@ public class RandomizableQuestion
 
 public class QuestionManager : MonoBehaviour
 {
+    [SerializeField] private GameObject startWindow; // Referência ao StartWindow
+    [SerializeField] private Button startButton; // Botão para iniciar o questionário
+    [SerializeField] private TMP_Text startTitleText; // Texto do título na tela inicial
+
     [SerializeField] private TMP_Text titleText; // Reference to "Título" in Interface
     [SerializeField] private TMP_Text descriptionText; // Reference to "Texto" in Interface
     [SerializeField] private Button[] optionButtons; // Buttons for Option A-D
@@ -181,6 +185,24 @@ public class QuestionManager : MonoBehaviour
         // Add listeners for the Next and Previous buttons
         nextButton.onClick.AddListener(NextQuestion);
         previousButton.onClick.AddListener(PreviousQuestion);
+
+        // Adiciona o listener ao botão de início
+        startButton.onClick.AddListener(StartQuestionnaire);
+
+        // Inicialmente, exibe a tela inicial
+        ShowStartWindow();
+    }
+
+    private void ShowStartWindow()
+    {
+        startWindow.SetActive(true); // Exibe a tela inicial
+        startTitleText.text = "Bem-vindo ao Questionário de Anamnese!"; // Define o título inicial
+    }
+
+    private void StartQuestionnaire()
+    {
+        startWindow.SetActive(false); // Oculta a tela inicial
+        DisplayCurrentQuestion(); // Exibe a primeira questão
     }
 
     private void DisplayCurrentQuestion()
