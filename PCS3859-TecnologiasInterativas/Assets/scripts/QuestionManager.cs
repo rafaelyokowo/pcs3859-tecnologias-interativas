@@ -23,7 +23,8 @@ public class RandomizableQuestion
 
     public Question GetSelectedQuestion() { return possibleQuestions[selectedQuestion]; }
 
-    public RandomizableQuestion(Question question) {
+    public RandomizableQuestion(Question question)
+    {
         possibleQuestions = new Question[] { question };
     }
 
@@ -48,6 +49,8 @@ public class QuestionManager : MonoBehaviour
     [SerializeField] private Button closeButton; // Close button in FeedbackWindow
     [SerializeField] private Button nextButton; // Next Button to go to the next question
     [SerializeField] private Button previousButton; // Previous Button to go to the previous question
+
+    [SerializeField] private EventScriptableObject endGameEvent;
 
     [SerializeField] private TMP_Text previousButtonText;
 
@@ -180,7 +183,7 @@ public class QuestionManager : MonoBehaviour
         }
 
         closeButton.onClick.AddListener(CloseFeedbackWindow);
-        feedbackWindow.SetActive(false); 
+        feedbackWindow.SetActive(false);
 
         // Add listeners for the Next and Previous buttons
         nextButton.onClick.AddListener(NextQuestion);
@@ -258,6 +261,7 @@ public class QuestionManager : MonoBehaviour
     {
         feedbackText.text = $"{title}\n{message}";
         feedbackWindow.SetActive(true);
+        endGameEvent?.Invoke();
     }
 
     private void CloseFeedbackWindow()
@@ -289,5 +293,5 @@ public class QuestionManager : MonoBehaviour
             Debug.Log("Você está na primeira questão.");
         }
     }
-    
+
 }
