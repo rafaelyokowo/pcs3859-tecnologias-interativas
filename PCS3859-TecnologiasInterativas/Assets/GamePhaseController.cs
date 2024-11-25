@@ -20,12 +20,22 @@ public class GamePhaseController : MonoBehaviour
     [SerializeField]
     private XRRayInteractor rightHandRayEnabler;
 
+
+    [SerializeField]
+    EventScriptableObject openDoorEvent;
+
+    [SerializeField]
+    EventScriptableObject endAnamneseEvent;
+
     void Start()
     {
         startingPhase.SetActive(true);
         anamnesisPhase.SetActive(false);
         sphygmomanometerPhase.SetActive(false);
         pressureMeasurementPhase.SetActive(false);
+
+        openDoorEvent?.AddListener(StartGame);
+        endAnamneseEvent?.AddListener(PressureMeasurement);
     }
 
     public void StartGame()
@@ -37,9 +47,9 @@ public class GamePhaseController : MonoBehaviour
     public void SphygmomanometerPlacement()
     {
         anamnesisPhase.SetActive(false);
-        sphygmomanometerPhase.SetActive(true) ;
+        sphygmomanometerPhase.SetActive(true);
     }
-    
+
     public void PressureMeasurement()
     {
         sphygmomanometerPhase.SetActive(false);
