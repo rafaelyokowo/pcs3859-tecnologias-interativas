@@ -44,6 +44,7 @@ public class ArrowFloat : MonoBehaviour
 
     private void DisableArrow()
     {
-        this.gameObject.SetActive(false);
+        gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 }
