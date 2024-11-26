@@ -3700,6 +3700,14 @@ PrefabInstance:
       propertyPath: m_InteractionLayers.m_Bits
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 4560934725997101375, guid: 2985e722cd352c9438b66c05b40630bc, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4560934725997101375, guid: 2985e722cd352c9438b66c05b40630bc, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4759087211144602258, guid: 2985e722cd352c9438b66c05b40630bc, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -3749,8 +3757,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.8, y: 0.5, z: 0.5}
-  m_Center: {x: -0.02, y: 0, z: -0.69}
+  m_Size: {x: 1.8, y: 0.5, z: 1.8}
+  m_Center: {x: 0, y: 0.27, z: 0}
 --- !u!1 &328457238
 GameObject:
   m_ObjectHideFlags: 0
@@ -16342,7 +16350,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.3, y: 0.3, z: 0.3}
+  m_Size: {x: 0.7, y: 0.9, z: 0.9}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1586057279
 MonoBehaviour:
@@ -17874,7 +17882,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 2ef2034cb372a4f8abde4f2ba07209ab, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1630794972795428178, guid: 2ef2034cb372a4f8abde4f2ba07209ab, type: 3}
       propertyPath: m_Materials.Array.data[0]
