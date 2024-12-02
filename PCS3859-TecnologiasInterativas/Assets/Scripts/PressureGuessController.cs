@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System;
 
 public class PressureGuessController : MonoBehaviour
 {
@@ -20,10 +21,13 @@ public class PressureGuessController : MonoBehaviour
     private GameObject phaseWrong;
     [SerializeField]
     private BloodPressureAudioController bloodPressureAudioController;
+    [SerializeField]
+    private GameObject ResetButton;
 
     // Chame essa função quando o botão numérico for pressionado
     public void OnNumberButtonPressed(int number)
     {
+        Debug.Log(number.ToString());
         digitFields[currentDigitIndex].text = number.ToString();
     }
 
@@ -46,9 +50,11 @@ public class PressureGuessController : MonoBehaviour
         if (IsPressureCorrect())
         {
             phaseCorrect.SetActive(true);
+            ResetButton.SetActive(true);
         }
         else
         {
+            ResetButton.SetActive(true);
             phaseWrong.SetActive(true);
         }
     }

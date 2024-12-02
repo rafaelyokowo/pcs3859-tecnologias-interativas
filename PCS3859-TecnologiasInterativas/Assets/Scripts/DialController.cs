@@ -51,6 +51,6 @@ public class DialController : MonoBehaviour
 
     void SetNeedle()
     {
-        imageNeedle.transform.localEulerAngles = new Vector3(0, 0, (currentPressure / 300.0f * 240.0f - 120.0f) * -1.0f );
+        imageNeedle.transform.localEulerAngles = new Vector3(0, 0, (currentPressure / 300.0f * 240.0f - 120.0f) * 1.0f );
     }
 }

@@ -24,8 +24,6 @@ public class BloodPressureAudioController : MonoBehaviour
 
     private bool isInflating = false;    // Controlar se o jogador está inflando o medidor
 
-    private float needlePressure = 0.0f;
-
     void Start()
     {
         audioSource.loop = true;
@@ -96,6 +94,6 @@ public class BloodPressureAudioController : MonoBehaviour
 
     void SetNeedle()
     {
-        imageNeedle.transform.localEulerAngles = new Vector3(0, 0, (currentPressure / 360.0f * 360.0f ) * -1.0f);
+        imageNeedle.transform.localEulerAngles = new Vector3(0, 0, (currentPressure / 360.0f * 360.0f ) * 1.0f);
     }
 }

@@ -35,24 +35,21 @@ public class GamePhaseController : MonoBehaviour
         pressureMeasurementPhase.SetActive(false);
 
         openDoorEvent?.AddListener(StartGame);
-        endAnamneseEvent?.AddListener(PressureMeasurement);
+        endAnamneseEvent?.AddListener(SphygmomanometerPlacement);
     }
 
     public void StartGame()
     {
-        startingPhase.SetActive(false);
         anamnesisPhase.SetActive(true);
     }
 
     public void SphygmomanometerPlacement()
     {
-        anamnesisPhase.SetActive(false);
         sphygmomanometerPhase.SetActive(true);
     }
 
     public void PressureMeasurement()
     {
-        sphygmomanometerPhase.SetActive(false);
         pressureMeasurementPhase.SetActive(true);
         rightHandRayEnabler.enabled = true;
         rightHandRayLine.enabled = true;
